@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ITactic} from '../entities/ITactic';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../enviroments/environment';
+import {Router} from '@angular/router';
+import {ShareService} from '../service/share.service';
 
 
 @Component({
@@ -11,7 +13,7 @@ import {environment} from '../enviroments/environment';
 })
 export class TabsComponent implements OnInit {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private shared: ShareService) {
     this.http = http;
   }
 
@@ -23,6 +25,11 @@ export class TabsComponent implements OnInit {
     this.http.get(environment.devUrl + '/tactic').subscribe((res: ITactic[]) => {
       this.listOfTactics = res;
     });
+  }
+
+  getTechies(event) {
+    const tacticId = event.target.id;
+    this.shared.doClick(tacticId);
   }
 
 }

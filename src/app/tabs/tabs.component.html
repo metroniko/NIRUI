@@ -1,6 +1,6 @@
 <ul class="nav justify-content-between tabs-block">
-  <li *ngFor="let tactic of listOfTactics; let i = index">
-    <a class="nav-link active" [id]="tactic.tacticId" href="#">{{tactic.tacticName}}</a>
+  <li *ngFor="let tactic of listOfTactics">
+    <a class="nav-link active" [id]="tactic.tacticId" href="#" (click)="getTechies($event)">{{tactic.tacticName}}</a>
   </li>
 </ul>
 
