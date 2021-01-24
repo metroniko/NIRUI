@@ -3,6 +3,7 @@ import {GetStrategyInformationService} from '../service/getStrategyInformation.s
 import {IStrategy} from '../entities/IStrategy';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../enviroments/environment';
+import {IExecutionResult} from '../entities/IExecutionResult';
 
 @Component({
   selector: 'app-tactic-description',
@@ -12,6 +13,7 @@ import {environment} from '../enviroments/environment';
 export class TacticDescriptionComponent implements OnInit {
 
   strategy: IStrategy;
+  executionResult: string;
   isHidden = true;
 
   constructor(private share: GetStrategyInformationService, private http: HttpClient ) {
@@ -29,8 +31,9 @@ export class TacticDescriptionComponent implements OnInit {
 
   public executeTest() {
     const httpParams = new HttpParams().set('strategyId', this.strategy.techniqueNumber);
-    this.http.post(environment.devUrl + '/activate', httpParams).subscribe(res => {
-      console.log(res);
+    this.http.post(environment.devUrl + '/activate', httpParams).subscribe((res: IExecutionResult) => {
+      console.log(res.result);
+      this.executionResult = res.result;
     });
   }
 
