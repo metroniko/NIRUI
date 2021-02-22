@@ -1,9 +1,11 @@
-<div class="panel panel-primary" id="result_panel">
+<div class="panel panel-primary text-center" id="result_panel">
   <div class="panel-heading"><h3 class="panel-title text-center">Result List</h3>
   </div>
-    <ul class="list-group list4a">
+  <button class="btn btn-primary" (click)="executeAll()">Execute All</button>
+  <ul class="list-group list4a">
       <li class="list-group-item" *ngFor="let tactic of strategyList" (click)="getStrategyDetails(tactic)">
         <strong>{{tactic.techniqueName}}</strong>
       </li>
     </ul>
+  <div [ngClass] = "{showNotifications: isHidden}" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 </div>

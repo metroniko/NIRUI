@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShareService} from '../service/share.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../enviroments/environment';
 import {IStrategy} from '../entities/IStrategy';
 import {GetStrategyInformationService} from '../service/getStrategyInformation.service';
@@ -14,6 +14,8 @@ import {GetStrategyInformationService} from '../service/getStrategyInformation.s
 export class StrategyBlockComponent implements OnInit {
 
   public strategyList: IStrategy[];
+  public tacticName;
+  isHidden = true;
 
   constructor(private router: ActivatedRoute, private share: ShareService,
               private http: HttpClient, private service: GetStrategyInformationService) {
@@ -22,6 +24,7 @@ export class StrategyBlockComponent implements OnInit {
     this.service = service;
 
     this.share.onClick.subscribe(cnt => {
+      this.tacticName = cnt;
       this.loadStrategyList(cnt);
     });
   }
@@ -37,5 +40,14 @@ export class StrategyBlockComponent implements OnInit {
 
   public getStrategyDetails(tactic: IStrategy) {
     this.service.getInfo(tactic);
+  }
+
+  public executeAll() {
+    this.isHidden = false;
+    const httpParams = new HttpParams().set('tacticId', this.tacticName);
+    this.http.post(environment.devUrl + '/activate/tactic', httpParams).subscribe((res: string[]) => {
+      this.isHidden = true;
+      console.log(res);
+    });
   }
 }
