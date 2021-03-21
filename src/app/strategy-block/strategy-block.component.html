@@ -3,9 +3,18 @@
   </div>
   <button class="btn btn-primary" (click)="executeAll()">Execute All</button>
   <ul class="list-group list4a">
-      <li class="list-group-item" *ngFor="let tactic of strategyList" (click)="getStrategyDetails(tactic)">
-        <strong>{{tactic.techniqueName}}</strong>
-      </li>
-    </ul>
-  <div [ngClass] = "{showNotifications: isHidden}" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <li class="list-group-item" *ngFor="let tactic of strategyList" (click)="getStrategyDetails(tactic)">
+      <strong>{{tactic.techniqueName}}</strong>
+    </li>
+  </ul>
+  <div [ngClass]="{showNotifications: isHidden}" class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </div>

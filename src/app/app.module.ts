@@ -10,24 +10,36 @@ import {TacticDescriptionComponent} from './tactic-description/tactic-descriptio
 import {RouterModule, Routes} from '@angular/router';
 import {ShareService} from './service/share.service';
 import {GetStrategyInformationService} from './service/getStrategyInformation.service';
+import { PatternBlockComponent } from './pattern-block/pattern-block.component';
+import { AppTabsPatternComponent } from './app-tabs-pattern/app-tabs-pattern.component';
+import { PatternComponent } from './pattern/pattern.component';
+import {FormsModule} from '@angular/forms';
+import { AllPatternsComponent } from './all-patterns/all-patterns.component';
 
-const appRoutes: Routes = [{path: 'strategy/:tacticId', component: StrategyBlockComponent}];
+const appRoutes: Routes = [{path: 'strategy/:tacticId', component: StrategyBlockComponent},
+  {path: 'createPatterns', component: PatternComponent},
+  {path: 'patterns', component: AllPatternsComponent}];
 
 @NgModule({
   declarations: [
     AppComponent,
     TabsComponent,
     StrategyBlockComponent,
-    TacticDescriptionComponent
+    TacticDescriptionComponent,
+    PatternBlockComponent,
+    AppTabsPatternComponent,
+    PatternComponent,
+    AllPatternsComponent
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    NgbPaginationModule,
-    RouterModule.forRoot(appRoutes),
-    NgbAlertModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        NgbPaginationModule,
+        RouterModule.forRoot(appRoutes),
+        NgbAlertModule,
+        HttpClientModule,
+        FormsModule
+    ],
   providers: [ShareService,
     GetStrategyInformationService],
   bootstrap: [AppComponent]
