@@ -2,25 +2,32 @@
   <li class="list-group-item" *ngFor="let pattern of patternsList" (click)="getPatternDetails(pattern)">
     <div class="row">
       <div class="col-6"><strong>{{pattern.patternName}}</strong></div>
-      <div class="col-6 text-right"><button class="btn btn-primary" (click)="executePattern(pattern)">Execute</button></div>
+      <div class="col-6 text-right">
+        <button class="btn btn-primary" (click)="executePattern(pattern)">Execute</button>
+      </div>
     </div>
   </li>
 </div>
 
 <div class="modal" [ngClass]="{showPopup: isModelHidden}" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">result</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="isModelHidden=false">
+    <div class="modalClass modal-content">
+      <div class="modal-header text-center">
+        <h3 class="modal-title">Результат</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="isModelHidden=false">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"  [ngClass]="{showBlock: isModelLoad}">
-        <div>Count of techniques: {{countOfTechniques}}</div>
-        <div class="">techniques that you managed to protect yourself from: {{patternResult.errorTechniques.join(", ")}}</div>
+      <div class="modal-body" [ngClass]="{showBlock: isModelLoad}">
+        <table class="m-auto">
+          <tr *ngFor="let pattern of patternResult">
+              <div *ngIf=" pattern.resultCode === 0;" class="ggren cls">{{pattern.techniqueName}}</div>
+              <div *ngIf=" pattern.resultCode === 1;" class="rred cls">{{pattern.techniqueName}}</div>
+              <div *ngIf=" pattern.resultCode === 2;" class="yylow cls">{{pattern.techniqueName}}</div>
+          </tr>
+        </table>
       </div>
-      <div [ngClass]="{showNotifications: isHidden}" *ngIf= !isHidden class="lds-roller">
+      <div [ngClass]="{showNotifications: isHidden}" *ngIf=!isHidden class="lds-roller">
         <div></div>
         <div></div>
         <div></div>
@@ -31,8 +38,8 @@
         <div></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="isModelHidden=false">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="isModelHidden=false">Close
+        </button>
       </div>
     </div>
   </div>

@@ -18,15 +18,13 @@ export class AllPatternsComponent implements OnInit {
   public isModelLoad = true;
   public countOfTechniques;
   public isHidden = true;
-  public patternResult: IPatternResult;
+  public patternResult: IPatternResult[];
+  public color: string;
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadPatternsList();
     this.router = router;
-    this.patternResult = {
-      countOfTechniques: 0,
-      errorTechniques: []
-    };
+    this.patternResult = [];
   }
 
   ngOnInit(): void {
@@ -40,14 +38,14 @@ export class AllPatternsComponent implements OnInit {
   }
 
   public executePattern(pattern: IPattern) {
+    this.patternResult = [];
     this.isModelLoad = true;
     this.isModelHidden = true;
     this.isHidden = false;
-    this.http.post(environment.devUrl + `/pattern/execute`,  pattern).subscribe((res: IPatternResult) => {
-      console.log(res);
+    this.http.post(environment.devUrl + `/pattern/execute`,  pattern).subscribe((res: IPatternResult[]) => {
+      console.log('Это вот', res);
       this.isHidden = true;
       this.isModelLoad = false;
-      this.countOfTechniques = res.errorTechniques.length;
       this.patternResult = res;
     });
   }

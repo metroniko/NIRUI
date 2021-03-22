@@ -1,4 +1,4 @@
 export interface IPatternResult {
-  countOfTechniques: number;
-  errorTechniques: string[];
+  resultCode: number;
+  techniqueName: string;
 }
