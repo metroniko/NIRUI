@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {IStrategy} from '../entities/IStrategy';
+import {Component, OnInit} from '@angular/core';
 import {IPattern} from '../entities/IPattern';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../enviroments/environment';
 import {ITactic} from '../entities/ITactic';
 import {Router} from '@angular/router';
@@ -18,12 +17,32 @@ export class PatternComponent implements OnInit {
   public tacticList: ITactic[];
   public tacticToSave: ITactic[];
   public patternName: string;
+  public sh: {name, bool};
+  public commandPrompt: {name, bool};
+  public powershell: {name, bool};
+  public bash: {name, bool};
 
   constructor(private http: HttpClient, private router: Router) {
     this.http = http;
     this.loadPatternsList();
     this.tacticToSave = [];
     this.router = router;
+    this.sh = {
+      name: 'sh',
+      bool: false
+    };
+    this.commandPrompt = {
+      name: 'command_prompt',
+      bool: false
+    };
+    this.powershell = {
+      name: 'powershell',
+      bool: false
+    };
+    this.bash = {
+      name: 'bash',
+      bool: false
+    };
   }
 
   ngOnInit(): void {
@@ -38,10 +57,14 @@ export class PatternComponent implements OnInit {
   searchTactics() {
     this.isHidden = false;
     console.log(this.inputValue);
-    this.http.get(environment.devUrl + `/tactic/search/${this.inputValue}`).subscribe((res: ITactic[]) => {
+    const array = [];
+    array.push(this.sh, this.bash, this.commandPrompt, this.powershell);
+    const anies = array.filter(el => el.bool === true).map(el => el.name);
+    console.log(anies);
+    this.http.post(environment.devUrl + `/tactic/search/${this.inputValue}`, anies).subscribe((res: ITactic[]) => {
       this.isHidden = true;
       this.tacticList = res;
-      console.log(this.tacticList);
+      console.log(this.sh);
     });
   }
 
@@ -61,4 +84,16 @@ export class PatternComponent implements OnInit {
     });
   }
 
+  onChangeSH() {
+    this.sh.bool = !this.sh.bool;
+  }
+  onChangeCP() {
+    this.commandPrompt.bool = !this.commandPrompt.bool;
+  }
+  onChangePS() {
+    this.powershell.bool = !this.powershell.bool;
+  }
+  onChangeBash() {
+    this.bash.bool = !this.bash.bool;
+  }
 }

@@ -152,13 +152,13 @@ caption {
 
 
 .rred {
-  background-color: #ff271a;
+  background-color: #ffb5ba;
 }
 .ggren {
-  background-color: #32ff19;
+  background-color: #c7ffc2;
 }
 .yylow {
-  background-color: #fcff23;
+  background-color: #cfffd7;
 }
 
 .cls {
@@ -171,7 +171,7 @@ caption {
   margin-bottom: 10px;
   font-size: 15pt;
   font-style: initial;
-  font-weight: 400;
+  font-weight: 700;
   padding: 0.5rem;
 }
 
