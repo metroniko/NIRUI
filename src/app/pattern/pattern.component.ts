@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 export class PatternComponent implements OnInit {
   public patternsList: IPattern[];
   public inputValue: string;
+  public inputCount: number;
   isHidden = true;
   public tacticList: ITactic[];
   public tacticToSave: ITactic[];
@@ -21,6 +22,9 @@ export class PatternComponent implements OnInit {
   public commandPrompt: {name, bool};
   public powershell: {name, bool};
   public bash: {name, bool};
+  public componentP: {name, bool};
+  public componentI: {name, bool};
+  public componentU: {name, bool};
 
   constructor(private http: HttpClient, private router: Router) {
     this.http = http;
@@ -41,6 +45,18 @@ export class PatternComponent implements OnInit {
     };
     this.bash = {
       name: 'bash',
+      bool: false
+    };
+    this.componentP = {
+      name: 'SDN_P',
+      bool: false
+    };
+    this.componentU = {
+      name: 'SDN_U',
+      bool: false
+    };
+    this.componentI = {
+      name: 'SND_I',
       bool: false
     };
   }
@@ -75,8 +91,10 @@ export class PatternComponent implements OnInit {
   }
 
   createPattern() {
+    const map = {};
+    this.tacticToSave.forEach(el => map[el.tacticId] = el.tacticCount);
     const pattern: IPattern = {
-      tacticNames: this.tacticToSave.map(ts => ts.tacticId),
+      tacticNames: map,
       patternName: this.patternName
     };
     console.log(pattern);
@@ -96,5 +114,20 @@ export class PatternComponent implements OnInit {
   }
   onChangeBash() {
     this.bash.bool = !this.bash.bool;
+  }
+  onChangeSDNP() {
+    this.commandPrompt.bool = !this.commandPrompt.bool;
+  }
+  onChangeSDNU() {
+    this.powershell.bool = !this.powershell.bool;
+  }
+  onChangeSDNI() {
+    this.bash.bool = !this.bash.bool;
+  }
+
+  setToCountOfAttack(count: Event, tactic: ITactic) {
+    tactic.tacticCount = count.target.value;
+    console.log(tactic.tacticName);
+    console.log(tactic.tacticCount);
   }
 }
