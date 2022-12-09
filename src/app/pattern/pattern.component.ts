@@ -71,6 +71,7 @@ export class PatternComponent implements OnInit {
   addToPattern(tactic: ITactic) {
     this.tacticToSave.push(tactic);
     console.log(this.tacticToSave);
+
   }
 
   createPattern() {
