@@ -43,7 +43,7 @@ export class AllPatternsComponent implements OnInit {
     this.isModelHidden = true;
     this.isHidden = false;
     this.http.post(environment.devUrl + `/pattern/execute`,  pattern).subscribe((res: IPatternResult[]) => {
-      console.log('Это вот', res);
+      console.log('Это вот 2', res);
       this.isHidden = true;
       this.isModelLoad = false;
       this.patternResult = res;
